@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PhoneDao {
 
@@ -105,7 +107,7 @@ public class PhoneDao {
 			//바인딩
 			pstmt.setString(1, personVo.getHp());
 			pstmt.setString(2, personVo.getCompany());
-			pstmt.setString(3, personVo.getPerson_id());
+			pstmt.setInt(3, personVo.getPersonId());
 			
 			//실행
             int count = pstmt.executeUpdate();
@@ -120,7 +122,7 @@ public class PhoneDao {
 	}
 	
 	
-	public void pDelete(int person_id) {
+	public void pDelete(int personId) {
 		getConnection();
 		
 		try {
@@ -133,7 +135,7 @@ public class PhoneDao {
 			pstmt = conn.prepareStatement(query);
 			
 			//바인딩
-			pstmt.setInt(1, person_id);
+			pstmt.setInt(1, personId);
 			
 			//실행
 			int count = pstmt.executeUpdate();
@@ -145,5 +147,41 @@ public class PhoneDao {
 			System.out.println("error:" + e);
 		}
 		close();
+	}
+	
+	
+	public List<PersonVo> PersonSelect(){
+		List<PersonVo> pList = new ArrayList<PersonVo>();
+	    getConnection();
+	    try {
+	    	//SQL문 준비
+	    	String query = "";
+	    	query += " select * ";
+	    	query += " from person ";
+	    	
+	    	//문자열 쿼리문으로 바꾸기
+	    	pstmt = conn.prepareStatement(query);
+	    	
+	    	//바인딩 생략
+	    	
+	    	//실행
+	    	rs = pstmt.executeQuery();
+	    	
+	    	//4.결과처리
+	    	while(rs.next()) {
+	    		int personId = rs.getInt("personId");
+	    		String name = rs.getString("name");
+	    		String hp = rs.getString("hp");
+	    		String company = rs.getString("company");
+	    		
+	    		PersonVo vo = new PersonVo(personId,name,hp,company);
+	    		pList.add(vo);		
+	    	}
+	    	
+	    } catch (SQLException e) {
+	    	System.out.println("error:" + e);
+	    }
+	    close();
+		return pList;
 	}
 }
