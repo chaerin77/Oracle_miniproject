@@ -52,3 +52,12 @@ where person_id = 4;
 
 delete from person
 where person_id = 5;
+
+--검색하기
+select name,
+       hp,
+       company
+from person
+where name like '%유%'
+or hp like '%5%'
+or company like '%1%';

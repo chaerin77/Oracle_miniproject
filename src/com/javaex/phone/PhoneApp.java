@@ -98,6 +98,14 @@ public class PhoneApp {
 					 System.out.println("<5.검색>");
 					 System.out.print("검색어 : ");
 					 String search = sc.nextLine();
+					 
+					 List<PersonVo> psearchlist = phoneDao.PersonSearch();
+					 for(int i=0; i<psearchlist.size(); i++) {
+						 PersonVo psl = psearchlist.get(i);
+						 System.out.println(psl.getPersonId()+"   "+psl.getName()+"   "+psl.getHp()+"   "+psl.getCompany());
+					 }
+					 System.out.println("\n");
+					 showp.showlist();
 					 break;
 				case 6:
 					 showp.showlast();

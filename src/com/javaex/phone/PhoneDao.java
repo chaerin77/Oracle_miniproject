@@ -184,4 +184,50 @@ public class PhoneDao {
 	    close();
 		return pList;
 	}
+	
+	
+	public List<PersonVo> PersonSearch(){
+		   List<PersonVo> pslist = new ArrayList<PersonVo>();
+		
+		   getConnection();
+		   
+		   try {
+			   //3.문자열 만들기
+			   String query = "";
+			   query += " select name, ";
+			   query += "        hp, ";
+			   query += "        company ";
+			   query += " from person ";
+			   query += " where name like ? ";
+			   query += " or hp like ? ";
+			   query += " or company like ? ";
+			   
+			   //문자열 쿼리문으로 바꾸기
+			   pstmt = conn.prepareStatement(query);
+			  
+			   //바인딩
+			   pstmt.setString(1, "%"+"유"+"%"); //'%유%'
+			   pstmt.setString(2, "%"+"3"+"%"); //'%5%'
+			   pstmt.setString(3, "%"+"123"+"%"); //'%1%'
+			   
+			   //실행
+			   rs = pstmt.executeQuery();
+			   
+			   //4.결과처리
+			   while(rs.next()) {
+				   int pid = rs.getInt(1);
+				   String name = rs.getString(2);
+				   String hp = rs.getString(3);
+				   String company = rs.getString(4);
+				   
+				   PersonVo vo = new PersonVo(pid,name,hp,company);
+				   pslist.add(vo);
+			   }
+			   
+		   }catch (SQLException e) {
+		    	System.out.println("error:" + e);
+		   }
+		   close();
+		   return pslist;
+	}
 }
