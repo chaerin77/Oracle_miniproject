@@ -21,6 +21,14 @@ public class PersonVo { //사람 정보 클래스
 		this.company = company;
 	}
 
+	
+	public PersonVo(String name, String hp, String company) {
+		super();
+		this.name = name;
+		this.hp = hp;
+		this.company = company;
+	}
+
 
 	public PersonVo(int personId, String name, String hp, String company) {
 		super();

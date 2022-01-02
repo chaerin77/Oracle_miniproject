@@ -79,10 +79,10 @@ public class PhoneDao {
 			pstmt.setString(3, personVo.getCompany());
 			
 			// 실행
-			int count = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
 			// 4.결과처리
-			System.out.println(count + "건이 추가되었습니다.");
+			//System.out.println(count + "건이 추가되었습니다.");
 			
 		}catch (SQLException e) {
 			System.out.println("error: 드라이버 로딩 실패 - " + e);
@@ -110,10 +110,10 @@ public class PhoneDao {
 			pstmt.setInt(3, personVo.getPersonId());
 			
 			//실행
-            int count = pstmt.executeUpdate();
+            pstmt.executeUpdate();
 			
 			//4.결과처리
-			System.out.println(count + "건이 수정되었습니다.");
+			//System.out.println(count + "건이 수정되었습니다.");
             
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -138,10 +138,10 @@ public class PhoneDao {
 			pstmt.setInt(1, personId);
 			
 			//실행
-			int count = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
 			//4.결과처리
-			System.out.println(count + "건이 삭제되었습니다.");
+			//System.out.println(count + "건이 삭제되었습니다.");
 			
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -162,14 +162,12 @@ public class PhoneDao {
 	    	//문자열 쿼리문으로 바꾸기
 	    	pstmt = conn.prepareStatement(query);
 	    	
-	    	//바인딩 생략
-	    	
 	    	//실행
 	    	rs = pstmt.executeQuery();
 	    	
 	    	//4.결과처리
 	    	while(rs.next()) {
-	    		int personId = rs.getInt("personId");
+	    		int personId = rs.getInt("person_Id");
 	    		String name = rs.getString("name");
 	    		String hp = rs.getString("hp");
 	    		String company = rs.getString("company");
