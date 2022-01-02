@@ -12,8 +12,7 @@ public class PhoneApp {
 		
 		PhoneDao phoneDao = new PhoneDao();
 		
-		//데이터 5개 넣어놓기
-		
+		//데이터 5개 넣어놓기]
 		/*
 		PersonVo vo01 = new PersonVo("이효리","010-1111-1111","02-1111-1111");
 		phoneDao.pInsert(vo01);
@@ -31,6 +30,7 @@ public class PhoneApp {
 		phoneDao.pInsert(vo05); */
 		
 		Boolean flag = true;
+		Scanner sc = null;
 		
 		while(flag) {
 			sc = new Scanner(System.in);
@@ -46,44 +46,72 @@ public class PhoneApp {
 			         personlist = phoneDao.PersonSelect();
 			 		 for(int i=0; i<personlist.size(); i++) {
 			 			PersonVo vo = personlist.get(i);
-			 			System.out.println(vo.getPersonId()+","+vo.getName()+","+vo.getHp()+","+vo.getCompany());
+			 			System.out.println(vo.getPersonId()+"   "+vo.getName()+"   "+vo.getHp()+"   "+vo.getCompany());
 			 		 }
 			 		 System.out.println("\n");
 			 		 showp.showlist();
 			         break;
 				case 2:
-					sc.nextLine();
-					System.out.print("이름 > ");
-					String name = sc.nextLine();
-					System.out.print("휴대전화 > ");
-					String phone = sc.nextLine();
-					System.out.print("회사번호 > ");
-					String company = sc.nextLine();
-					System.out.println(name + "/" + phone + "/" + company);
-
-					showp.showlist();
-					break;
+					 sc.nextLine();
+					 System.out.println("<2.등록>");
+					 System.out.print("이름 > ");
+					 String name = sc.nextLine();
+					 System.out.print("휴대전화 > ");
+					 String phone = sc.nextLine();
+					 System.out.print("회사번호 > ");
+					 String company = sc.nextLine();
+					
+					 PersonVo vo = new PersonVo(name,phone,company);
+					 phoneDao.pInsert(vo);
+					
+					 System.out.println("[1건 등록되었습니다.]" + "\n");
+					 showp.showlist();
+					 break;
 				case 3:
-					 System.out.println("");
+					 System.out.println("<3.수정>");
+					 System.out.print("번호 > ");
+					 int pid = sc.nextInt();
+					 sc.nextLine();
+					 System.out.print("이름 > ");
+					 String uname = sc.nextLine();
+					 System.out.print("휴대전화 > ");
+					 String uphone = sc.nextLine();
+					 System.out.print("회사번호 > ");
+					 String ucompany = sc.nextLine();
+	
+					 PersonVo uvo = new PersonVo(pid,uname,uphone,ucompany);
+					 phoneDao.pUpdate(uvo);
+					 
+					 System.out.println("[1건 수정되었습니다.]" + "\n");
+					 showp.showlist();
 					 break;
 				case 4:
-					 System.out.println("");
+					 System.out.println("<4.삭제>");
+					 System.out.print(">번호 : ");
+					 int number = sc.nextInt();
+					 phoneDao.pDelete(number);
+					 
+					 System.out.println("[1건 삭제되었습니다.]" + "\n");
+					 showp.showlist();
 					 break;
 				case 5:	 
-					 System.out.println("");
+					 System.out.println("<5.검색>");
+					 System.out.print("검색어 : ");
+					 String search = sc.nextLine();
 					 break;
 				case 6:
 					 showp.showlast();
 					 flag = false;
 				     break;
 				default :
-					 System.out.println(""); //위에 해당안하는 나머지들
-			         break;
+					 System.out.println("[다시 입력해주세요.]" + "\n"); //위에 해당안하는 나머지들
+			         showp.showlist();
+					 break;
 			} 
 		}
 		
 		sc.close();
-	
+
 	}
 
 }
