@@ -186,15 +186,16 @@ public class PhoneDao {
 	}
 	
 	
-	public List<PersonVo> PersonSearch(){
+	public List<PersonVo> PersonSearch(String search){
 		   List<PersonVo> pslist = new ArrayList<PersonVo>();
 		
 		   getConnection();
 		   
 		   try {
-			   //3.문자열 만들기
+			   //3.문자열 만들기 --쿼리문고치기.. person_id 안써서안나왔나
 			   String query = "";
-			   query += " select name, ";
+			   query += " select person_id, ";
+			   query += "        name, ";
 			   query += "        hp, ";
 			   query += "        company ";
 			   query += " from person ";
@@ -206,9 +207,14 @@ public class PhoneDao {
 			   pstmt = conn.prepareStatement(query);
 			  
 			   //바인딩
-			   pstmt.setString(1, "%"+"유"+"%"); //'%유%'
-			   pstmt.setString(2, "%"+"3"+"%"); //'%5%'
-			   pstmt.setString(3, "%"+"123"+"%"); //'%1%'
+			   /*
+			   pstmt.setString(1, '%'+search+'%'); //'%유%'
+			   pstmt.setString(2, '%'+search+'%'); //'%5%'
+			   pstmt.setString(3, '%'+search+'%'); //'%1%'*/
+			   
+			   pstmt.setString(1, "%"+search+"%"); //'%유%'
+			   pstmt.setString(2, "%"+search+"%"); //'%5%'
+			   pstmt.setString(3, "%"+search+"%"); //'%1%'
 			   
 			   //실행
 			   rs = pstmt.executeQuery();

@@ -1,3 +1,7 @@
+--system 접속 계정생성
+create user phonedb identified by phonedb;
+grant resource, connect to phonedb;
+
 --테이블/시퀀스 삭제
 drop table person;
 drop sequence seq_person_id;
@@ -54,10 +58,13 @@ delete from person
 where person_id = 5;
 
 --검색하기
-select name,
+select person_id,
+       name,
        hp,
        company
 from person
 where name like '%유%'
-or hp like '%5%'
-or company like '%1%';
+or hp like '%유%'
+or company like '%유%';
+
+commit;

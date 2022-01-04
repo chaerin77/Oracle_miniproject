@@ -12,7 +12,7 @@ public class PhoneApp {
 		
 		PhoneDao phoneDao = new PhoneDao();
 		
-		//데이터 5개 넣어놓기]
+		//데이터 5개 넣어놓기] - 쿼리문에서 commit; 안날려서 select메소드썼을때 데이터 못읽은거였음 쿼리문commit;잘하기
 		/*
 		PersonVo vo01 = new PersonVo("이효리","010-1111-1111","02-1111-1111");
 		phoneDao.pInsert(vo01);
@@ -94,12 +94,13 @@ public class PhoneApp {
 					 System.out.println("[1건 삭제되었습니다.]" + "\n");
 					 showp.showlist();
 					 break;
-				case 5:	 
+				case 5:
+					 sc.nextLine();
 					 System.out.println("<5.검색>");
 					 System.out.print("검색어 : ");
 					 String search = sc.nextLine();
 					 
-					 List<PersonVo> psearchlist = phoneDao.PersonSearch();
+					 List<PersonVo> psearchlist = phoneDao.PersonSearch(search);
 					 for(int i=0; i<psearchlist.size(); i++) {
 						 PersonVo psl = psearchlist.get(i);
 						 System.out.println(psl.getPersonId()+"   "+psl.getName()+"   "+psl.getHp()+"   "+psl.getCompany());
